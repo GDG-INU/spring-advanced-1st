@@ -2,7 +2,6 @@
 
 ## API 명세서
 ---
-```markdown
 |기능|HTTP Method|API path|
 |------|---|---|
 |회원 가입|POST|/user/signin|
@@ -12,4 +11,3 @@
 |책 조회|GET|/book/{bookid}|
 |책 대여|PATCH|/book/{bookid}|
 |책 반납|PATCH|/book/{bookid}|
-```
