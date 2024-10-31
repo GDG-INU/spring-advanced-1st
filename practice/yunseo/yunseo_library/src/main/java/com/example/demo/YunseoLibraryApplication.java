@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class YunseoLibraryApplication {
+public class yunseoLibraryApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(YunseoLibraryApplication.class, args);
