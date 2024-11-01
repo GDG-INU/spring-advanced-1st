@@ -26,6 +26,7 @@ dependencies {
 	//implementation 'mysql:mysql-connector-java:8.0.37'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	runtimeOnly 'com.h2database:h2'
 }
 
 tasks.named('test') {
