@@ -5,7 +5,6 @@
 ### - DTO(Data Transfer Object)와 도메인 객체의 분리
 
 
-
 ### 1. Controller 레이어의 역할과 책임
 **Controller는 사용자 요청을 받는 입구입니다.** 사용자가 웹이나 앱을 통해 요청을 보내면 가장 먼저 Controller가 그 요청을 받습니다.
 
