@@ -10,12 +10,12 @@ public class BookRequestDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class searchBookDTO {
-        private Long id;
+    public static class addBookDTO {
         private String title;
         private String author;
         private String isbn;
         private String publisher;
         private String category;
+        private String coverImg;
     }
 }

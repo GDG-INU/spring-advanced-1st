@@ -3,6 +3,7 @@ package com.GDG.Spring_Study.domain.Book;
 import com.GDG.Spring_Study.domain.Book.dto.BookRequestDTO;
 import com.GDG.Spring_Study.domain.Book.service.BookServiceImpl;
 import jakarta.servlet.http.HttpSession;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +32,15 @@ public class BookController {
                                         @RequestParam(value = "isbn", defaultValue = "") String isbn,
                                         @RequestParam(value = "category", defaultValue = "") String category) {
         return ResponseEntity.ok().body(bookService.searchBook(author, publisher, title, isbn, category));
+    }
+
+    /**
+     * 도서 등록
+     * @param addBookDTO
+     * @return ResponseEntity<?>
+     */
+    @PostMapping("/addBook")
+    public ResponseEntity<?> addBook(@RequestBody BookRequestDTO.addBookDTO addBookDTO) {
+        return ResponseEntity.ok().body(bookService.addBook(addBookDTO));
     }
 }
