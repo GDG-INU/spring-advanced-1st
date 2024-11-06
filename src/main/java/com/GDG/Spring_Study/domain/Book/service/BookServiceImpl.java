@@ -11,6 +11,7 @@ import com.GDG.Spring_Study.global.response.resEnum.SuccessCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,5 +75,17 @@ public class BookServiceImpl implements BookService{
             bookRepository.save(book);
             return ApiResponse.SUCCESS(SuccessCode.ADD_BOOK);
         } else return ApiResponse.ERROR(ErrorCode.ALREADY_EXISTING_BOOK);
+    }
+
+    /**
+     * 도서 삭제
+     * @param id
+     * @return ApiResponse<?>
+     */
+    @Override
+    @Transactional
+    public ApiResponse<?> deleteBook(Long id) {
+        bookRepository.deleteById(id);
+        return ApiResponse.SUCCESS(SuccessCode.DELETE_BOOK);
     }
 }

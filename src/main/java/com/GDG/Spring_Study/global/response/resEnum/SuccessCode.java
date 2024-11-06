@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum SuccessCode {
     // COMMON
     DELETE_USER(200, "회원 탈퇴가 완료되었습니다."),
+    DELETE_BOOK(200, "도서 정보가 삭제되었습니다."),
     FOUND_NO_SEARCH_RESULT(200, "조회결과가 없습니다."),
     ID_AVAILABLE(200, "사용 가능한 ID입니다."),
     LOGIN_SUCCESS(200, "로그인 되었습니다."),

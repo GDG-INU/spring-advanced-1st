@@ -7,4 +7,6 @@ public interface BookService {
     ApiResponse<?> searchBook(String author,String  publisher,String  title,String  isbn,String  category); // 도서 검색
     
     ApiResponse<?> addBook(BookRequestDTO.addBookDTO addBookDTO); // 도서 등록
+    
+    ApiResponse<?> deleteBook(Long id); // 도서 삭제
 }

@@ -43,4 +43,15 @@ public class BookController {
     public ResponseEntity<?> addBook(@RequestBody BookRequestDTO.addBookDTO addBookDTO) {
         return ResponseEntity.ok().body(bookService.addBook(addBookDTO));
     }
+
+
+    /**
+     * 도서 삭제
+     * @param id
+     * @return ResponseEntity<?>
+     */
+    @DeleteMapping("/deleteBook/{id}")
+    public ResponseEntity<?> deleteBook(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(bookService.deleteBook(id));
+    }
 }
