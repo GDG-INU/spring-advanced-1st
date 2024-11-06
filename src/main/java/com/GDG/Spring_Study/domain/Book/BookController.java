@@ -44,7 +44,6 @@ public class BookController {
         return ResponseEntity.ok().body(bookService.addBook(addBookDTO));
     }
 
-
     /**
      * 도서 삭제
      * @param id
@@ -53,5 +52,15 @@ public class BookController {
     @DeleteMapping("/deleteBook/{id}")
     public ResponseEntity<?> deleteBook(@PathVariable("id") Long id) {
         return ResponseEntity.ok().body(bookService.deleteBook(id));
+    }
+
+    /**
+     * 도서 수정
+     * @param updateBookDTO
+     * @return ResponseEntity<?>
+     */
+    @PostMapping("/updateBook")
+    public ResponseEntity<?> updateBook(@RequestBody BookRequestDTO.updateBookDTO updateBookDTO) {
+        return ResponseEntity.ok().body(bookService.updateBook(updateBookDTO));
     }
 }

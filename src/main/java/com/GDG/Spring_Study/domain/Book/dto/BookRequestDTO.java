@@ -18,4 +18,17 @@ public class BookRequestDTO {
         private String category;
         private String coverImg;
     }
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class updateBookDTO {
+        private Long id;
+        private String title;
+        private String author;
+        private String isbn;
+        private String publisher;
+        private String category;
+        private String coverImg;
+    }
 }

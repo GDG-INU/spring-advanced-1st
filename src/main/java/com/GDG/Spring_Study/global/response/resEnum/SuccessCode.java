@@ -19,6 +19,7 @@ public enum SuccessCode {
     CREATE_USER(201, "회원가입이 완료되었습니다."),
     ADD_BOOK(201, "도서 정보가 등록되었습니다."),
     UPDATE_USER_INFO(201, "회원정보가 수정되었습니다."),
+    UPDATE_BOOK(201, "도서 정보가 수정되었습니다."),
     UPDATE_USER_IMG(201, "사용자 프로필이 변경되었습니다.")
     ;
 

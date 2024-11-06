@@ -9,4 +9,6 @@ public interface BookService {
     ApiResponse<?> addBook(BookRequestDTO.addBookDTO addBookDTO); // 도서 등록
     
     ApiResponse<?> deleteBook(Long id); // 도서 삭제
+    
+    ApiResponse<?> updateBook(BookRequestDTO.updateBookDTO updateBookDTO); // 도서 수정
 }

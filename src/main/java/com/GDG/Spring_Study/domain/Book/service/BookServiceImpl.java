@@ -5,7 +5,6 @@ import com.GDG.Spring_Study.domain.Book.dto.BookRequestDTO;
 import com.GDG.Spring_Study.domain.Book.dto.BookResponseDTO;
 import com.GDG.Spring_Study.entitiy.Book;
 import com.GDG.Spring_Study.global.response.ApiResponse;
-import com.GDG.Spring_Study.global.response.CustomException;
 import com.GDG.Spring_Study.global.response.resEnum.ErrorCode;
 import com.GDG.Spring_Study.global.response.resEnum.SuccessCode;
 import lombok.RequiredArgsConstructor;
@@ -58,6 +57,7 @@ public class BookServiceImpl implements BookService{
      * @return SuccessCode or ErrorCode
      */
     @Override
+    @Transactional
     public ApiResponse<?> addBook(BookRequestDTO.addBookDTO addBookDTO) {
         // 1. isbn 기준으로 이미 등록된 도서가 있는지 확인
         Optional<Book> bookInfo = bookRepository.findByIsbn(addBookDTO.getIsbn());
@@ -87,5 +87,26 @@ public class BookServiceImpl implements BookService{
     public ApiResponse<?> deleteBook(Long id) {
         bookRepository.deleteById(id);
         return ApiResponse.SUCCESS(SuccessCode.DELETE_BOOK);
+    }
+
+    /**
+     * 도서 수정
+     * @param updateBookDTO
+     * @return ApiResponse<?>
+     */
+    @Override
+    @Transactional
+    public ApiResponse<?> updateBook(BookRequestDTO.updateBookDTO updateBookDTO) {
+        Book book = Book.builder()
+                .id(updateBookDTO.getId())
+                .title(updateBookDTO.getTitle())
+                .author(updateBookDTO.getAuthor())
+                .publisher(updateBookDTO.getPublisher())
+                .isbn(updateBookDTO.getIsbn())
+                .category(updateBookDTO.getCategory())
+                .coverImg(updateBookDTO.getCoverImg())
+                .build();
+        bookRepository.save(book);
+        return ApiResponse.SUCCESS(SuccessCode.UPDATE_BOOK);
     }
 }
