@@ -25,6 +25,8 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	//implementation 'mysql:mysql-connector-java:8.0.37'
 	runtimeOnly 'com.mysql:mysql-connector-j'
+	//implementation 'mysql:mysql-connector-java:8.0.37'
+	runtimeOnly 'com.mysql:mysql-connector-j'
 	runtimeOnly 'com.h2database:h2'
 }
 
