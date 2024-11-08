@@ -3,6 +3,9 @@ package com.example.demo.domain;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Book {
 
@@ -10,7 +13,9 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private String author;
+
+    @OneToMany(mappedBy = "book")
+    private List<BookAuthor> bookAuthors = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "publisher_id")
@@ -32,12 +37,12 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
+    public List<BookAuthor> getBookAuthor() {
+        return bookAuthors;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setBookAuthor(List<BookAuthor> bookAuthors) {
+        this.bookAuthors = bookAuthors;
     }
 
     public Publisher getPublisher() {
