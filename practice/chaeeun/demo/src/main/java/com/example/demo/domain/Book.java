@@ -1,10 +1,10 @@
 package com.example.demo.domain;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Book {
@@ -13,8 +13,13 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private String author;
-    private String publisher;
+
+    @OneToMany(mappedBy = "book")
+    private List<BookAuthor> bookAuthors = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "publisher_id")
+    private Publisher publisher;
 
     public Long getId() {
         return id;
@@ -32,19 +37,19 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
+    public List<BookAuthor> getBookAuthor() {
+        return bookAuthors;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setBookAuthor(List<BookAuthor> bookAuthors) {
+        this.bookAuthors = bookAuthors;
     }
 
-    public String getPublisher() {
+    public Publisher getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(String publisher) {
+    public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
 }
