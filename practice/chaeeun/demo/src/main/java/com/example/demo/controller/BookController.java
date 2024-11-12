@@ -21,7 +21,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Book> getBookId(@PathVariable Long id){
+    public Optional<Book> getBookId(@PathVariable("id") Long id){
         return bookService.findById(id);
     }
 
@@ -31,7 +31,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteBook(@PathVariable Long id){
+    public String deleteBook(@PathVariable("id") Long id){
         bookService.deleteById(id);
         return id + "번 도서가 삭제되었습니다.";
     }
