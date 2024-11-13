@@ -1,73 +1,58 @@
 package com.example.library.book;
-import com.example.library.service.Member;
 import jakarta.persistence.*;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class Book {
 
+    // 책 번호 (ID)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본 키 자동 생성
+    private Long bookId;
 
-    private final String title;
-    private final String author;
-    private boolean available;  // 도서 대여 가능 여부
+    // 책 이름
+    @Column(nullable = false)
+    private String name;
 
-    @ManyToMany(mappedBy = "rentedBooks")
-    private final Set<Member> members;
+    // 책 설명
+    private String explanation;
 
-    // 기본 생성자 - JPA에서 필요
-    protected Book() {
-        this.members = new HashSet<>();
-        this.title = null;
-        this.author = null;
-        this.available = true;
+    // 대여 정보 (다대일 관계, Book이 Rent의 참조를 가지므로 양방향 관계 설정)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Rent> rentList;
+
+    // 생성자, getter, setter, toString() 메소드 등
+    public Book() {}
+
+    public Long getBookId() {
+        return bookId;
     }
 
-    // 불변 객체를 위한 생성자
-    public Book(String title, String author) {
-        this.title = title;
-        this.author = author;
-        this.available = true;  // 기본적으로 대여 가능하도록 설정
-        this.members = new HashSet<>();
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
 
-    // Getter 메서드만 제공
-    public Long getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public String getTitle() {
-        return title;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getExplanation() {
+        return explanation;
     }
 
-    public boolean isAvailable() {
-        return available;
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
     }
 
-    public Set<Member> getMembers() {
-        return Collections.unmodifiableSet(members); // 외부에서 직접 수정할 수 없도록 불변 Set으로 반환
+    public List<Rent> getRentList() {
+        return rentList;
     }
 
-    // 책의 대여 가능 여부를 변경하는 메서드
-    public void changeAvailability(boolean available) {
-        this.available = available;
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", available=" + available +
-                '}';
+    public void setRentList(List<Rent> rentList) {
+        this.rentList = rentList;
     }
 }
