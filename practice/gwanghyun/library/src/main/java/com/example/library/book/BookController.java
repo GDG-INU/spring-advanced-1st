@@ -9,10 +9,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/books")
-public class bookController {
+public class BookController {
+
+    private final BookService bookService;
 
     @Autowired
-    private bookService bookService;
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     // 책 추가
     @PostMapping
