@@ -1,5 +1,6 @@
-package com.example.library.book;
+package com.example.library.service;
 
+import com.example.library.book.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,7 @@ import java.util.Optional;
 public class bookController {
 
     @Autowired
-    private bookService bookService;
+    private com.example.library.service.bookService bookService;
 
     // 책 추가
     @PostMapping

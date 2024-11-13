@@ -1,5 +1,6 @@
-package com.example.library.book;
+package com.example.library.service;
 
+import com.example.library.book.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Optional;
 public class bookService {
 
     @Autowired
-    private bookRepository bookRepository;
+    private BookRepository bookRepository;
 
     // 책 추가
     public Book addBook(Book book) {
