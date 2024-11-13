@@ -30,13 +30,11 @@ public class BookController {
 
     @DeleteMapping("/{bookId}")
     public List<Book> deleteBook(@PathVariable Long bookId, @RequestBody Book book){
-        bookService.deleteBook(bookId);
         return bookService.getAllBooks();
     }
 
     @PutMapping("/{bookId}")
     public Book updateBook(@PathVariable Long bookId, @RequestBody Book book){
-        bookService.updateBook(bookId, book);
         return bookService.getBook(bookId);
     }
 
