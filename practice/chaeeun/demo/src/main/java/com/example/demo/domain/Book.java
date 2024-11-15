@@ -1,11 +1,12 @@
 package com.example.demo.domain;
 
-
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@Getter
+@NoArgsConstructor
 @Entity
 public class Book {
 
@@ -14,42 +15,29 @@ public class Book {
     private Long id;
     private String title;
 
-    @OneToMany(mappedBy = "book")
-    private List<BookAuthor> bookAuthors = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
+    private Author author;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    public Long getId() {
-        return id;
+    public Book(String title, Author author, Publisher publisher) {
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
+    public void changeTitle(String title) {
         this.title = title;
     }
 
-    public List<BookAuthor> getBookAuthor() {
-        return bookAuthors;
+    public void changeAuthor(Author author) {
+        this.author = author;
     }
 
-    public void setBookAuthor(List<BookAuthor> bookAuthors) {
-        this.bookAuthors = bookAuthors;
-    }
-
-    public Publisher getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(Publisher publisher) {
+    public void changePublisher(Publisher publisher) {
         this.publisher = publisher;
     }
 }
