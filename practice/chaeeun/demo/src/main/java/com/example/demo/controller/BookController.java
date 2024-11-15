@@ -1,9 +1,11 @@
 package com.example.demo.controller;
 
-import com.example.demo.domain.Book;
+import com.example.demo.dto.BookDTO;
 import com.example.demo.service.BookService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.Optional;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/books")
@@ -16,24 +18,30 @@ public class BookController {
     }
 
     @PostMapping
-    public Book createBook(@RequestBody Book book){
-        return bookService.saveBook(book);
+    public BookDTO createBook(@RequestBody BookDTO bookDTO){
+        return bookService.saveBook(bookDTO);
     }
 
     @GetMapping("/{id}")
-    public Optional<Book> getBookId(@PathVariable("id") Long id){
-        return bookService.findById(id);
+    public ResponseEntity<BookDTO> getBookId(@PathVariable("id") Long id){
+        return bookService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/title")
-    public Optional<Book> getBookTitle(@RequestParam String title){
-        return bookService.findByTitle(title);
+    @GetMapping("/search")
+    public ResponseEntity<List<BookDTO>> getBookTitle(@RequestParam String title){
+        List<BookDTO> books = bookService.findByTitle(title);
+        if(books.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(books);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteBook(@PathVariable("id") Long id){
+    public ResponseEntity<Void> deleteBook(@PathVariable("id") Long id){
         bookService.deleteById(id);
-        return id + "번 도서가 삭제되었습니다.";
+        return ResponseEntity.noContent().build(); // 204 not content
     }
 
 }

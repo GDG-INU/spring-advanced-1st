@@ -1,11 +1,14 @@
 package com.example.demo.domain;
 
 import jakarta.persistence.*;
-
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@NoArgsConstructor
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,18 +16,13 @@ public class Author {
     private String name;
 
     @OneToMany(mappedBy = "author")
-    private List<BookAuthor> bookAuthors = new ArrayList<>();
+    private List<Book> book = new ArrayList<>();
 
-    public Long getId() {
-        return id;
+    public Author(String name) {
+        this.name = name;
     }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
+
+    public void changeAuthjorName(String name) {
         this.name = name;
     }
 }
