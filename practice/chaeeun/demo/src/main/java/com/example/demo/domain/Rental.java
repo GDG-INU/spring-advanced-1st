@@ -31,4 +31,15 @@ public class Rental {
     @OneToOne
     @JoinColumn(name = "BOOK_ID")
     private Book book;
+
+    public Rental(LocalDate rentalDate, LocalDate returnDate, Member member, Book book) {
+        this.rentalDate = rentalDate;
+        this.returnDate = returnDate;
+        this.member = member;
+        this.book = book;
+    }
+    // 책이 반납되었을 때 현재 날짜 출력(반납 날짜 기록)
+    public void markAsReturned() {
+        this.returnDate = LocalDate.now();
+    }
 }
