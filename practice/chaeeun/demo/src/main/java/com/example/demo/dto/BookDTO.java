@@ -14,7 +14,13 @@ public class BookDTO {
     private Long authorId;
     private Long publisherId;
 
-    public BookDTO() {
+    public BookDTO(Long id, String title, String authorName, String publisherName, Long authorId, Long publisherId) {
+        this.id = id;
+        this.title = title;
+        this.authorName = authorName;
+        this.publisherName = publisherName;
+        this.authorId = authorId;
+        this.publisherId = publisherId;
     }
 
     public BookDTO(Book book) {

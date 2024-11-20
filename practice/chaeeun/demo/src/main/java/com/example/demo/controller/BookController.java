@@ -43,5 +43,4 @@ public class BookController {
         bookService.deleteById(id);
         return ResponseEntity.noContent().build(); // 204 not content
     }
-
 }
