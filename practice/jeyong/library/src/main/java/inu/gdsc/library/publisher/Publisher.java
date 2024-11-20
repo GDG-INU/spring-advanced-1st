@@ -4,13 +4,14 @@ import inu.gdsc.library.author.Author;
 import inu.gdsc.library.book.Book;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
 @NoArgsConstructor
 public class Publisher {
 
