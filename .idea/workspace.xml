@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c83720bb-24bf-4249-812f-cf1b65a0b66a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/spring-advanced-1st.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +86,9 @@
       <workItem from="1730898675664" duration="20000" />
       <workItem from="1730899692031" duration="174000" />
       <workItem from="1730899870874" duration="41000" />
+      <workItem from="1730972794111" duration="611000" />
+      <workItem from="1731378082502" duration="12000" />
+      <workItem from="1731378206694" duration="1284000" />
     </task>
     <servers />
   </component>
