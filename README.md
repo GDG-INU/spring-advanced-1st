@@ -4,8 +4,8 @@
 
 |Core|Member|Member|Member|Member|Member|Member|Member|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|<img src="https://avatars.githubusercontent.com/u/121238128?v=4" width=100px alt="나무"/>||||||||
-|장철희|
+|<img src="https://avatars.githubusercontent.com/u/121238128?v=4" width=100px alt="나무"/>|<img src="https://avatars.githubusercontent.com/u/66998786?v=4" width=100px alt="수빈"/>|<img src="https://avatars.githubusercontent.com/u/75568516?v=4" width=100px alt="규리"/>|<img src="https://avatars.githubusercontent.com/u/170295944?v=4" width=100px alt="윤서"/>|<img src="https://avatars.githubusercontent.com/u/104718158?v=4" width=100px alt="제용"/>|<img src="https://avatars.githubusercontent.com/u/164310681?v=4" width=100px alt="채은"/>|<img src="https://avatars.githubusercontent.com/u/98392401?v=4" width=100px alt="광현"/>|<img src="https://avatars.githubusercontent.com/u/142569430?v=4" width=100px alt="평근"/>|
+|[장철희](https://github.com/jang-namu)|[김수빈](https://github.com/subin3124)|[남규리](https://github.com/gyuri00)|[이윤서](https://github.com/yunseo0000)|[이제용](https://github.com/JayongLee)|[이채은](https://github.com/chaeeun1103)|[조광현](https://github.com/Kidprogramer1039)|[천평근](https://github.com/Pyeonggeun)|
 
 ## 📝 규칙
 
