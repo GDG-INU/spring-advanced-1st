@@ -1,24 +1,35 @@
 package inu.gdsc.library.book;
 
-import inu.gdsc.library.author.Author;
-import inu.gdsc.library.author.AuthorRepository;
-import inu.gdsc.library.publisher.PublisherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class BookService {
 
     private final BookRepository bookRepository;
-    private final PublisherRepository publisherRepository;
-    private final AuthorRepository authorRepository;
 
+    public List<Book> getAllBooks() {
+        return bookRepository.findAll();
+    }
 
+    public Book getBook(Long bookId) {
+        return bookRepository.findById(bookId);
+    }
+
+    public Book saveBook(Book book) {
+        return bookRepository.save(book);
+    }
+
+    public void updateBook(Long bookId ,Book update_book) {
+        bookRepository.update(bookId, update_book);
+    }
+
+    public void deleteBook(Long bookId) {
+        bookRepository.delete(bookId);
+    }
 
 
 
