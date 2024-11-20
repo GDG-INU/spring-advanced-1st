@@ -1,5 +1,7 @@
 package com.GDG.Spring_Study.domain.Book.dto;
 
+import com.GDG.Spring_Study.entitiy.Author;
+import com.GDG.Spring_Study.entitiy.Publisher;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,9 +14,9 @@ public class BookRequestDTO {
     @Builder
     public static class addBookDTO {
         private String title;
-        private String author;
+        private Long author;
         private String isbn;
-        private String publisher;
+        private Long publisher;
         private String category;
         private String coverImg;
     }
@@ -25,9 +27,9 @@ public class BookRequestDTO {
     public static class updateBookDTO {
         private Long id;
         private String title;
-        private String author;
+        private Long author;
         private String isbn;
-        private String publisher;
+        private Long publisher;
         private String category;
         private String coverImg;
     }

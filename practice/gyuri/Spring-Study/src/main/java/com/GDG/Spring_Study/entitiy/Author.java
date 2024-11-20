@@ -13,22 +13,13 @@ import org.hibernate.annotations.Comment;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tbl_user")
-public class Users extends BaseEntity {
+@Table(name = "tbl_author")
+public class Author extends BaseEntity {
     @Id
-    @Comment(value="사용자 정보 구분자")
+    @Comment(value="저자 구분자")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    @Comment(value="이름")
-    private String name;
-    @Column
-    @Comment(value="이메일")
-    private String email;
-    @Column
-    @Comment(value="비밀번호")
-    private String passwd;
-    @Column
-    @Comment(value="학과")
-    private String major;
+    @Comment(value="저자")
+    private String author;
 }

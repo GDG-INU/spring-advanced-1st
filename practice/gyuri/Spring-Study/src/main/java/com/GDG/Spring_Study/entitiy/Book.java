@@ -13,6 +13,7 @@ import org.hibernate.annotations.Comment;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "tbl_book")
 public class Book extends BaseEntity {
     @Id
     @Comment(value="도서 정보 구분자")
@@ -22,18 +23,22 @@ public class Book extends BaseEntity {
     @Comment(value="제목")
     private String title;
     @Column
-    @Comment(value="저자")
-    private String author;
-    @Column
     @Comment(value="ISBN")
     private String isbn;
-    @Column
-    @Comment(value="출판사")
-    private String publisher;
     @Column
     @Comment(value="카테고리")
     private String category;
     @Column
     @Comment(value="커버 이미지")
     private String coverImg;
+
+    @ManyToOne
+    @Comment(value = "저자 구분자")
+    @JoinColumn(name = "author_id", nullable = false)
+    private Author author;
+
+    @ManyToOne
+    @Comment(value = "출판사 구분자")
+    @JoinColumn(name = "publisher_id", nullable = false)
+    private Publisher publisher;
 }

@@ -1,9 +1,13 @@
 package com.GDG.Spring_Study.domain.Book.service;
 
+import com.GDG.Spring_Study.domain.Author.AuthorRepository;
 import com.GDG.Spring_Study.domain.Book.BookRepository;
 import com.GDG.Spring_Study.domain.Book.dto.BookRequestDTO;
 import com.GDG.Spring_Study.domain.Book.dto.BookResponseDTO;
+import com.GDG.Spring_Study.domain.Publisher.PublisherRepository;
+import com.GDG.Spring_Study.entitiy.Author;
 import com.GDG.Spring_Study.entitiy.Book;
+import com.GDG.Spring_Study.entitiy.Publisher;
 import com.GDG.Spring_Study.global.response.ApiResponse;
 import com.GDG.Spring_Study.global.response.resEnum.ErrorCode;
 import com.GDG.Spring_Study.global.response.resEnum.SuccessCode;
@@ -21,6 +25,8 @@ import java.util.Optional;
 @Service
 public class BookServiceImpl implements BookService{
     private final BookRepository bookRepository;
+    private final AuthorRepository authorRepository;
+    private final PublisherRepository publisherRepository;
 
     /**
      * 도서 검색
@@ -41,9 +47,9 @@ public class BookServiceImpl implements BookService{
         for (Book entity : bookInfo)
             bookDTOList.add(BookResponseDTO.searchBookDTO.builder()
                             .title(entity.getTitle())
-                            .author(entity.getAuthor())
+                            .author(entity.getAuthor().getAuthor())
                             .isbn(entity.getIsbn())
-                            .publisher(entity.getPublisher())
+                            .publisher(entity.getPublisher().getPublisher_name())
                             .category(entity.getCategory())
                             .coverImg(entity.getCoverImg())
                             .build());
@@ -64,17 +70,21 @@ public class BookServiceImpl implements BookService{
 
         // 2. 이미 등록된 도서 정보가 없는 경우에만 등록
         if (bookInfo.isEmpty()) {
-            Book book = Book.builder()
-                    .title(addBookDTO.getTitle())
-                    .author(addBookDTO.getAuthor())
-                    .publisher(addBookDTO.getPublisher())
-                    .isbn(addBookDTO.getIsbn())
-                    .category(addBookDTO.getCategory())
-                    .coverImg(addBookDTO.getCoverImg())
-                    .build();
-            bookRepository.save(book);
-            return ApiResponse.SUCCESS(SuccessCode.ADD_BOOK);
-        } else return ApiResponse.ERROR(ErrorCode.ALREADY_EXISTING_BOOK);
+            Optional<Author> author = authorRepository.findById(addBookDTO.getAuthor());
+            Optional<Publisher> publisher = publisherRepository.findById(addBookDTO.getPublisher());
+            log.info("author " + author.get().getAuthor());
+
+                Book book = Book.builder()
+                        .title(addBookDTO.getTitle())
+                        .author(author.get())
+                        .publisher(publisher.get())
+                        .isbn(addBookDTO.getIsbn())
+                        .category(addBookDTO.getCategory())
+                        .coverImg(addBookDTO.getCoverImg())
+                        .build();
+        bookRepository.save(book);
+        return ApiResponse.SUCCESS(SuccessCode.ADD_BOOK);
+    } else return ApiResponse.ERROR(ErrorCode.ALREADY_EXISTING_BOOK);
     }
 
     /**
@@ -97,11 +107,14 @@ public class BookServiceImpl implements BookService{
     @Override
     @Transactional
     public ApiResponse<?> updateBook(BookRequestDTO.updateBookDTO updateBookDTO) {
+        Optional<Author> author = authorRepository.findById(updateBookDTO.getAuthor());
+        Optional<Publisher> publisher = publisherRepository.findById(updateBookDTO.getPublisher());
+
         Book book = Book.builder()
                 .id(updateBookDTO.getId())
                 .title(updateBookDTO.getTitle())
-                .author(updateBookDTO.getAuthor())
-                .publisher(updateBookDTO.getPublisher())
+                .author(author.get())
+                .publisher(publisher.get())
                 .isbn(updateBookDTO.getIsbn())
                 .category(updateBookDTO.getCategory())
                 .coverImg(updateBookDTO.getCoverImg())
