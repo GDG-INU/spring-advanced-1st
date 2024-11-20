@@ -22,7 +22,7 @@ public class Author {
         this.name = name;
     }
 
-    public void changeAuthjorName(String name) {
+    public void changeAuthorName(String name) {
         this.name = name;
     }
 }

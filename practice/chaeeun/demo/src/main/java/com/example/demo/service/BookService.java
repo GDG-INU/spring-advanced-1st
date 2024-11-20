@@ -40,9 +40,16 @@ public class BookService {
         return new BookDTO(savedBook);
     }
 
-    public Optional<BookDTO> findById(Long id){
-        return bookRepository.findById(id)
-                .map(book -> new BookDTO(book));
+    public Optional<BookDTO> findById(Long id) {
+        return bookRepository.findBookWithAuthorAndPublisherById(id)
+                .map(book -> new BookDTO(
+                        book.getId(),
+                        book.getTitle(),
+                        book.getAuthor().getName(),
+                        book.getPublisher().getName(),
+                        book.getAuthor().getId(),
+                        book.getPublisher().getId()
+                ));
     }
 
     public List<BookDTO> findByTitle(String title){
