@@ -1,17 +1,18 @@
 package inu.gdsc.library.book;
 
-import inu.gdsc.library.NotEnoughQuantityException;
 import inu.gdsc.library.author.Author;
 import inu.gdsc.library.publisher.Publisher;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Getter @Setter
+@Data
 @Entity @NoArgsConstructor
 public class Book {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bookId")
+    @Id @GeneratedValue
+    @Column (name = "book_id")
     private long id;
 
     private String title;
@@ -27,19 +28,4 @@ public class Book {
     private Integer ISBN;
 
     private Integer quantity;
-
-    private boolean isAvailable;
-
-
-    //==비지니스 로직==//
-    public void addQuantity(int newQuantity) {
-        this.quantity += newQuantity;
-    }
-    public void removeQuantity(int newQuantity) {
-        int restQuantity = this.quantity - newQuantity;
-        if (restQuantity < 0) {
-            throw new NotEnoughQuantityException("수량이 부족합니다");
-        }
-        this.quantity = restQuantity;
-    }
 }

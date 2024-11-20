@@ -29,34 +29,14 @@ public class BookController {
     }
 
     @DeleteMapping("/{bookId}")
-    public List<Book> deleteBook(@PathVariable Long bookId){
-        bookService.deleteBook(bookId);
+    public List<Book> deleteBook(@PathVariable Long bookId, @RequestBody Book book){
         return bookService.getAllBooks();
     }
 
     @PutMapping("/{bookId}")
     public Book updateBook(@PathVariable Long bookId, @RequestBody Book book){
-        return bookService.updateBook(bookId, book);
+        return bookService.getBook(bookId);
     }
 
-    @GetMapping("/author/{authorId}")
-    public List<Book> getBooksByAuthor(@PathVariable Long authorId) {
-        return bookService.getBooksByAuthor(authorId);
-    }
-
-    @GetMapping("/author/{authorName}")
-    public List<Book> getBooksByAuthorName(@PathVariable String authorName) {
-        return bookService.getBooksByAuthorName(authorName);
-    }
-
-    @GetMapping("/publisher/{publisherId}")
-    public List<Book> getBooksByPublisher(@PathVariable Long publisherId) {
-        return bookService.getBooksByPublisher(publisherId);
-    }
-
-    @GetMapping("/publisher/{publisherName}")
-    public List<Book> getBooksByPublisherName(@PathVariable String publisherName) {
-        return bookService.getBooksByPublisherName(publisherName);
-    }
 
 }
