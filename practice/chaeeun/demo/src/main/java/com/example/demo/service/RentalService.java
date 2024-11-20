@@ -37,8 +37,8 @@ public class RentalService {
             .orElseThrow(() -> new IllegalArgumentException(bookId + " 는 존재하지 않는 책입니다."));
 
         // 책이 이미 대여중인지 확인(returnDate가 null이라면 아직 반납되지 않은 상태)
-        //if(rentalRepository.findByBookAndReturnDateIsNull(book).isPresent()){
-        //    throw new IllegalStateException("이 책은 이미 대여중이므로 대여할 수 없습니다.");
+        // if(rentalRepository.findByBookAndReturnDateIsNull(book).isPresent()){
+        // throw new IllegalStateException("이 책은 이미 대여중이므로 대여할 수 없습니다.");
         // }
 
         Rental rental = new Rental(null, LocalDate.now(), null, member, book);
