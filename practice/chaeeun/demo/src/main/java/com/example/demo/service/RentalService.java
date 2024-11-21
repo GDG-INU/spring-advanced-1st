@@ -41,17 +41,15 @@ public class RentalService {
         // throw new IllegalStateException("이 책은 이미 대여중이므로 대여할 수 없습니다.");
         // }
 
-        Rental rental = new Rental(null, LocalDate.now(), null, member, book);
+        // Lombok의 @Builder를 사용해서 Rental 객체 생성
+        Rental rental = Rental.builder()
+                .member(member)
+                .book(book)
+                .build();
+
         Rental savedRental = rentalRepository.save(rental);
 
-        return new RentalDTO(
-                savedRental.getId(),
-                savedRental.getRentalDate(),
-                savedRental.getReturnDate(),
-                member.getId(),
-                book.getId(),
-                book.getTitle()
-        );
+       return RentalDTO.from(savedRental);
     }
 
     // 책 반납
@@ -64,14 +62,8 @@ public class RentalService {
 
         Rental savedRental = rentalRepository.save(rental);
 
-        return new RentalDTO(
-                savedRental.getId(),
-                savedRental.getRentalDate(),
-                savedRental.getReturnDate(),
-                savedRental.getMember().getId(),
-                savedRental.getBook().getId(),
-                savedRental.getBook().getTitle()
-        );
+        return RentalDTO.from(savedRental);
+
     }
 
     // 현재 대여중인 책 조회
