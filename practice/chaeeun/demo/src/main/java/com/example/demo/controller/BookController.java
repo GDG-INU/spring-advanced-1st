@@ -32,9 +32,6 @@ public class BookController {
     @GetMapping("/search")
     public ResponseEntity<List<BookDTO>> getBookTitle(@RequestParam String title){
         List<BookDTO> books = bookService.findByTitle(title);
-        if(books.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
         return ResponseEntity.ok(books);
     }
 

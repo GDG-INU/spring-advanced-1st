@@ -37,6 +37,9 @@ public class BookService {
         Book book = new Book(bookDTO.getTitle(), author, publisher);
         Book savedBook = bookRepository.save(book);
 
+        author.getBookList().add(book);
+        publisher.getBookList().add(book);
+
         return new BookDTO(savedBook);
     }
 
