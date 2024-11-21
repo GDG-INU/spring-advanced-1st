@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c83720bb-24bf-4249-812f-cf1b65a0b66a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="fd2845d1-3bb4-43cc-9003-aad07449cd67" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,50 +13,39 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 6
+  &quot;associatedIndex&quot;: 3
 }</component>
-  <component name="ProjectId" id="2o6QZBHw9fxdldNKjkmOc8u5ggO" />
+  <component name="ProjectId" id="2ojM7ReuFZqlnESDYsJOS7CnYuQ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;Application.YunseoApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle./Users/yunseo/Desktop/spring-advanced-1st/practice/yunseo/build.gradle.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;yunseo0000&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/yunseo/Desktop/spring-advanced-1st&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/yunseo/Desktop/spring-advanced-1st/concepts&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/practice/yunseo" />
-    </key>
-  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
-      <module name="spring-advanced-1st" />
+      <module name="concepts" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="spring-advanced-1st" />
+      <module name="concepts" />
       <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -74,29 +63,18 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c83720bb-24bf-4249-812f-cf1b65a0b66a" name="Changes" comment="" />
-      <created>1730187598158</created>
+      <changelist id="fd2845d1-3bb4-43cc-9003-aad07449cd67" name="Changes" comment="" />
+      <created>1731378363337</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1730187598158</updated>
-      <workItem from="1730187599203" duration="12128000" />
-      <workItem from="1730828280858" duration="3053000" />
-      <workItem from="1730898484549" duration="162000" />
-      <workItem from="1730898657046" duration="13000" />
-      <workItem from="1730898675664" duration="20000" />
-      <workItem from="1730899692031" duration="174000" />
-      <workItem from="1730899870874" duration="41000" />
-      <workItem from="1730972794111" duration="611000" />
-      <workItem from="1731378082502" duration="12000" />
-      <workItem from="1731378206694" duration="1284000" />
+      <updated>1731378363337</updated>
+      <workItem from="1731378364372" duration="1731000" />
+      <workItem from="1732096773492" duration="1208000" />
+      <workItem from="1732163580135" duration="599000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>
