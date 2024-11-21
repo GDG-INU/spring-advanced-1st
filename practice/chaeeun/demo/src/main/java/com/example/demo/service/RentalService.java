@@ -41,11 +41,8 @@ public class RentalService {
         // throw new IllegalStateException("이 책은 이미 대여중이므로 대여할 수 없습니다.");
         // }
 
-        // Lombok의 @Builder를 사용해서 Rental 객체 생성
-        Rental rental = Rental.builder()
-                .member(member)
-                .book(book)
-                .build();
+        // 정적 팩토리 메서드를 사용해 객체 생성
+        Rental rental = Rental.createRental(member, book);
 
         Rental savedRental = rentalRepository.save(rental);
 

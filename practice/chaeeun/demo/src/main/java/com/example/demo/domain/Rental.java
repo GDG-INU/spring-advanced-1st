@@ -30,17 +30,13 @@ public class Rental {
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
-    @Builder
-    protected Rental(Member member, Book book) {
+    public static Rental createRental(Member member, Book book) {
         if(member == null || book == null) {
             throw new IllegalArgumentException("Member와 Book은 필수값입니다.");
         }
-        // rentalDate가 null로 전달된 겨우 기본값으로 현재 날짜를 설정
-        this.rentalDate = LocalDate.now();
-        this.returnDate = null; // 기본값 null
-        this.member = member;
-        this.book = book;
+        return new Rental(null, LocalDate.now(), null, member, book);
     }
+
     // 책이 반납되었을 때 현재 날짜 출력(반납 날짜 기록)
     public void markAsReturned() {
         this.returnDate = LocalDate.now();
