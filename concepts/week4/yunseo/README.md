@@ -1,4 +1,5 @@
 # 4주차 스터디
+
 ## 1. **Java: 에러와 예외, Checked Exception과 Unchecked Exception**
 
 Java에서는 예외(Exception)와 에러(Error)를 구분한다.
