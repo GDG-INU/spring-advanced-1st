@@ -2,13 +2,16 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.BookDTO;
 import com.example.demo.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/books")
+@Validated
 public class BookController {
 
     private final BookService bookService;
@@ -18,7 +21,7 @@ public class BookController {
     }
 
     @PostMapping
-    public BookDTO createBook(@RequestBody BookDTO bookDTO){
+    public BookDTO createBook(@Valid @RequestBody BookDTO bookDTO){
         return bookService.saveBook(bookDTO);
     }
 
