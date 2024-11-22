@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.AuthorDTO;
 import com.example.demo.dto.MemberDTO;
 import com.example.demo.service.MemberService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class MemberController {
 
     // 회원 생성
     @PostMapping
-    public MemberDTO createMember(@RequestBody MemberDTO memberDTO) {
+    public MemberDTO createMember(@Valid @RequestBody MemberDTO memberDTO) {
         return memberService.registerMember(memberDTO);
     }
 

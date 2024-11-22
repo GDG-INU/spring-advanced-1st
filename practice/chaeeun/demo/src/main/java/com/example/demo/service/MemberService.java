@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.domain.Member;
 import com.example.demo.dto.AuthorDTO;
 import com.example.demo.dto.MemberDTO;
+import com.example.demo.exception.DuplicateMemberException;
 import com.example.demo.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,9 @@ public class MemberService {
     }
 
     public MemberDTO registerMember(MemberDTO memberDTO) {
+        if(memberRepository.existsByEmail(memberDTO.getEmail())) {
+            throw new DuplicateMemberException("이미 등록된 회원입니다.");
+        }
         Member member = new Member(memberDTO.getName(), memberDTO.getEmail());
         Member savedMember = memberRepository.save(member);
         return new MemberDTO(savedMember.getId(), savedMember.getName(), savedMember.getEmail());

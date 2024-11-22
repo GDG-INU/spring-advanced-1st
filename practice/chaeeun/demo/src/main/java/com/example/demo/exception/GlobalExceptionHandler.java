@@ -34,6 +34,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleDuplicatePublisherException(DuplicatePublisherException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage()); // 409 Conflict
     }
+
+    // 중복된 회원(이메일로 구별)
+    @ExceptionHandler(DuplicateMemberException.class)
+    public ResponseEntity<String> handleDuplicateMemberException(DuplicateMemberException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
 }
 
 
