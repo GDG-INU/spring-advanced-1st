@@ -52,7 +52,7 @@ public class RentalService {
     // 책 반납
     @Transactional
     public RentalDTO returnBook(Long rentalId){
-        Rental rental = rentalRepository.findById(rentalId)
+        Rental rental = rentalRepository.findWithMemberAndBookById(rentalId)
                 .orElseThrow(() -> new IllegalArgumentException(rentalId + " 는 존재하지 않습니다."));
 
         rental.markAsReturned();
