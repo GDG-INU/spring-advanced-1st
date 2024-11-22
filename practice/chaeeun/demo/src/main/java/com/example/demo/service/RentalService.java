@@ -5,6 +5,8 @@ import com.example.demo.domain.Book;
 import com.example.demo.domain.Member;
 import com.example.demo.domain.Rental;
 import com.example.demo.dto.RentalDTO;
+import com.example.demo.exception.AlreadyRentedException;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.RentalRepository;
@@ -31,15 +33,15 @@ public class RentalService {
     @Transactional
     public RentalDTO registerRental(Long memberId, Long bookId){
         Member member = memberRepository.findById(memberId)
-           .orElseThrow(() -> new IllegalArgumentException(memberId + " 는 존재하지 않는 회원입니다."));
+           .orElseThrow(() -> new NotFoundException("회원이 존재하지 않습니다."));
 
         Book book = bookRepository.findById(bookId)
-            .orElseThrow(() -> new IllegalArgumentException(bookId + " 는 존재하지 않는 책입니다."));
+            .orElseThrow(() -> new NotFoundException("책이 존재하지 않습니다."));
 
         // 책이 이미 대여중인지 확인(returnDate가 null이라면 아직 반납되지 않은 상태)
-        // if(rentalRepository.findByBookAndReturnDateIsNull(book).isPresent()){
-        // throw new IllegalStateException("이 책은 이미 대여중이므로 대여할 수 없습니다.");
-        // }
+        if(rentalRepository.findByBookAndReturnDateIsNull(book).isPresent()){
+           throw new AlreadyRentedException("이 책은 이미 대여중이므로 대여할 수 없습니다.");
+        }
 
         // 정적 팩토리 메서드를 사용해 객체 생성
         Rental rental = Rental.createRental(member, book);
@@ -53,7 +55,7 @@ public class RentalService {
     @Transactional
     public RentalDTO returnBook(Long rentalId){
         Rental rental = rentalRepository.findWithMemberAndBookById(rentalId)
-                .orElseThrow(() -> new IllegalArgumentException(rentalId + " 는 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundException("대여 기록이 존재하지 않습니다."));
 
         rental.markAsReturned();
 

@@ -2,7 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Publisher;
 import com.example.demo.dto.PublisherDTO;
-import com.example.demo.exception.DuplicatePublisherException;
+import com.example.demo.exception.DuplicateEntityException;
 import com.example.demo.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class PublisherService {
     // DTO로 받아서 엔티티로 변환 후 저장하고, 저장된 엔티티를 다시 DTO로 변환해서 반환
     public PublisherDTO savePublisher(PublisherDTO publisherDTO) {
         if(publisherRepository.existsByName(publisherDTO.getName())) {
-            throw new DuplicatePublisherException("이미 등록된 출판사입니다.");
+            throw new DuplicateEntityException("이미 등록된 출판사입니다.");
         }
         Publisher publisher = new Publisher(publisherDTO.getName());
         Publisher savedPublisher = publisherRepository.save(publisher);

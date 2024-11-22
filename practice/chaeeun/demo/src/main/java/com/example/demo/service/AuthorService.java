@@ -2,7 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Author;
 import com.example.demo.dto.AuthorDTO;
-import com.example.demo.exception.DuplicateAuthorException;
+import com.example.demo.exception.DuplicateEntityException;
 import com.example.demo.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class AuthorService {
     public AuthorDTO saveAuthor (AuthorDTO authorDTO) {
         // 동일한 이름의 Author가 이미 존재하는지 확인
         if(authorRepository.existsByName(authorDTO.getName())){
-            throw new DuplicateAuthorException("이미 등록된 저자입니다.");
+            throw new DuplicateEntityException("이미 등록된 저자입니다.");
         }
         Author author = new Author(authorDTO.getName());
         Author savedAuthor = authorRepository.save(author);
