@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
