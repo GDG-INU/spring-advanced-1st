@@ -1,0 +1,25 @@
+spring:
+  profiles:
+    active: local # 기본 프로파일(local, prod 중 선택)
+
+# 공통 설정
+logging:
+  level:
+    root: INFO
+  file-path: logs/application.log # 로그 파일 경로
+
+# 개발 환경 설정
+---
+spring:
+  profiles: local
+logging:
+  file-path: logs/local-application.log # 개발 환경 로그 파일
+
+# 운영 환경 설정
+---
+spring:
+  profiles: prod
+logging:
+  file-path: /var/log/applications/prod-application.log # 운영 환경 로그 파일
+  level:
+    root: WARN # 운영에서는 WARN 이상만 로그 출력
