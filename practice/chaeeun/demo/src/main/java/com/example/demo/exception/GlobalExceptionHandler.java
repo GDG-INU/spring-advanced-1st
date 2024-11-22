@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,10 +22,18 @@ public class GlobalExceptionHandler {
         });
         return ResponseEntity.badRequest().body(errors); // 400 Bad Request
     }
+
     // 중복된 저자 이름
     @ExceptionHandler(DuplicateAuthorException.class) // 예외 객체를 매개변수 ex로 받는다.
     public ResponseEntity<String> handleDuplicateAuthorException(DuplicateAuthorException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage()); // 409 Conflict
     }
-
+    
+    // 중복된 출판사 이름
+    @ExceptionHandler(DuplicatePublisherException.class)
+    public ResponseEntity<String> handleDuplicatePublisherException(DuplicatePublisherException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage()); // 409 Conflict
+    }
 }
+
+
