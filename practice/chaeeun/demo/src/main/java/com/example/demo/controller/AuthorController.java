@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.AuthorDTO;
 import com.example.demo.service.AuthorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +21,9 @@ public class AuthorController {
     }
 
     @PostMapping
-    public AuthorDTO createAuthor(@RequestBody AuthorDTO authorDTO) {
-        return authorService.saveAuthor(authorDTO);
+    public ResponseEntity<AuthorDTO> createAuthor(@Valid @RequestBody AuthorDTO authorDTO) {
+        AuthorDTO savedAuthor = authorService.saveAuthor(authorDTO);
+        return ResponseEntity.ok(savedAuthor);
     }
 
     @GetMapping("/{id}")

@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Author;
 import com.example.demo.dto.AuthorDTO;
+import com.example.demo.exception.DuplicateAuthorException;
 import com.example.demo.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,10 @@ public class AuthorService {
 
     // DTO를 받아서 엔티티로 변환 후 저장하고, 저장된 엔티티를 다시 DTO로 변환해서 반환
     public AuthorDTO saveAuthor (AuthorDTO authorDTO) {
+        // 동일한 이름의 Author가 이미 존재하는지 확인
+        if(authorRepository.existsByName(authorDTO.getName())){
+            throw new DuplicateAuthorException("이미 등록된 저자입니다.");
+        }
         Author author = new Author(authorDTO.getName());
         Author savedAuthor = authorRepository.save(author);
         return new AuthorDTO(savedAuthor.getId(), savedAuthor.getName());
