@@ -1,25 +1,48 @@
-spring:
-  profiles:
-    active: local # 기본 프로파일(local, prod 중 선택)
-
 # 공통 설정
+spring:
+  application:
+    name: demo-application # 애플리케이션 이름
+  datasource:
+    url: jdbc:mysql://localhost:3306/demo_db
+    username: root
+    password: your_password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # 개발 중에는 update, 운영 시에는 validate 사용 권장
+    open-in-view: false # View에서 Lazy 로딩 방지
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        show_sql: false # 디버깅 시 true로 변경 가능
+
 logging:
   level:
-    root: INFO
-  file-path: logs/application.log # 로그 파일 경로
+    root: INFO # 기본 로그 레벨
+  file:
+    path: logs/application.log # 로그 파일 경로
 
-# 개발 환경 설정
+# 개발 환경 (local) 설정
 ---
 spring:
-  profiles: local
+  config:
+    activate:
+      on-profile: local
 logging:
-  file-path: logs/local-application.log # 개발 환경 로그 파일
-
-# 운영 환경 설정
----
-spring:
-  profiles: prod
-logging:
-  file-path: /var/log/applications/prod-application.log # 운영 환경 로그 파일
   level:
-    root: WARN # 운영에서는 WARN 이상만 로그 출력
+    root: DEBUG
+  file:
+    path: logs/local-application.log
+
+# 운영 환경 (prod) 설정
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+logging:
+  level:
+    root: WARN
+  file:
+    path: /var/log/applications/prod-application.log

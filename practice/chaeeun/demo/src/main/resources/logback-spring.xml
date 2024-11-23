@@ -1,7 +1,7 @@
 <configuration>
-    <!-- Spring에서 설정 값을 참조 -->
-    <springProperty name="LOG_FILE_PATH" source="spring.log.file-path" />
-    <springProperty name="LOG_LEVEL" source="spring.log.level" />
+    <!-- Spring 프로퍼티 참조 -->
+    <springProperty name="LOG_FILE_PATH" source="logging.file.path" defaultValue="logs/application.log" />
+    <springProperty name="LOG_LEVEL" source="logging.level.root" defaultValue="INFO" />
 
     <!-- 콘솔 로그 설정 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -13,17 +13,16 @@
     <!-- 파일 로그 설정 -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_FILE_PATH}</file>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- 일별 로그 파일 생성 -->
             <fileNamePattern>${LOG_FILE_PATH}-%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>7</maxHistory> <!-- 최근 7일치만 보관 -->
         </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
     </appender>
 
-    <!-- Logger 설정 -->
+    <!-- 루트 로거 설정 -->
     <root level="${LOG_LEVEL}">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />
