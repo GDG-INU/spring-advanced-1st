@@ -4,10 +4,13 @@ import com.example.demo.domain.Member;
 import com.example.demo.dto.MemberDTO;
 import com.example.demo.exception.DuplicateEntityException;
 import com.example.demo.repository.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+
+@Slf4j
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
@@ -18,10 +21,13 @@ public class MemberService {
 
     public MemberDTO registerMember(MemberDTO memberDTO) {
         if(memberRepository.existsByEmail(memberDTO.getEmail())) {
+            log.error("이미 등록된 회원입니다. email={}", memberDTO.getEmail());
             throw new DuplicateEntityException("이미 등록된 회원입니다.");
+
         }
         Member member = new Member(memberDTO.getName(), memberDTO.getEmail());
         Member savedMember = memberRepository.save(member);
+        log.info("회원 등록에 성공하였습니다. id:{}, name:{}, email:{}", savedMember.getId(), savedMember.getName(), memberDTO.getEmail());
         return new MemberDTO(savedMember.getId(), savedMember.getName(), savedMember.getEmail());
     }
 
@@ -34,6 +40,7 @@ public class MemberService {
 
     // 회원 삭제
     public void deleteMember(Long id) {
+        log.info("회원 삭제에 성공하였습니다. id={}", id);
         memberRepository.deleteById(id);
     }
 
