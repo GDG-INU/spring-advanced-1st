@@ -4,12 +4,14 @@ import com.example.demo.domain.Author;
 import com.example.demo.dto.AuthorDTO;
 import com.example.demo.exception.DuplicateEntityException;
 import com.example.demo.repository.AuthorRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 
+@Slf4j
 @Service
 public class AuthorService {
     private final AuthorRepository authorRepository;
@@ -23,10 +25,12 @@ public class AuthorService {
     public AuthorDTO saveAuthor (AuthorDTO authorDTO) {
         // 동일한 이름의 Author가 이미 존재하는지 확인
         if(authorRepository.existsByName(authorDTO.getName())){
+            log.error("저자 저장 실패 - 중복된 이름: {}", authorDTO.getName());
             throw new DuplicateEntityException("이미 등록된 저자입니다.");
         }
         Author author = new Author(authorDTO.getName());
         Author savedAuthor = authorRepository.save(author);
+        log.info("저자 저장 성공: {}", savedAuthor.getName());
         return new AuthorDTO(savedAuthor.getId(), savedAuthor.getName());
     }
 
@@ -47,5 +51,6 @@ public class AuthorService {
 
     public void deleteById(Long id) {
         authorRepository.deleteById(id);
+        log.info("저자 삭제 성공: id={}", id);
     }
 }

@@ -3,12 +3,13 @@ package com.example.demo.controller;
 import com.example.demo.dto.AuthorDTO;
 import com.example.demo.service.AuthorService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-
+@Slf4j
 @RestController
 @RequestMapping("/authors")
 public class AuthorController {
@@ -23,6 +24,7 @@ public class AuthorController {
     @PostMapping
     public ResponseEntity<AuthorDTO> createAuthor(@Valid @RequestBody AuthorDTO authorDTO) {
         AuthorDTO savedAuthor = authorService.saveAuthor(authorDTO);
+        log.info("저자 등록이 완료되었습니다: {}", savedAuthor.getName());
         return ResponseEntity.ok(savedAuthor);
     }
 
@@ -35,12 +37,15 @@ public class AuthorController {
 
     @GetMapping
     public List<AuthorDTO> getAllAuthors() {
-        return authorService.findAll();
+        List<AuthorDTO> authors = authorService.findAll();
+        log.info("전체 저자 조회가 완료되었습니다: {}건", authors.size());
+        return authors;
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAuthor(@PathVariable("id") Long id) {
         authorService.deleteById(id);
+        log.info("저자 삭제가 완료되었습니다: id={}", id);
         return ResponseEntity.noContent().build(); // 204 no content
     }
 }
