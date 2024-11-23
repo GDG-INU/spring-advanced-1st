@@ -45,7 +45,6 @@ public class BookService {
         // Book 객체 생성 및 저장
         Book book = new Book(bookDTO.getTitle(), author, publisher);
         Book savedBook = bookRepository.save(book);
-
         log.info("도서 저장에 성공하였습니다. title={}, author={}, publisher={}", bookDTO.getTitle(), author, publisher);
 
         author.getBookList().add(book);

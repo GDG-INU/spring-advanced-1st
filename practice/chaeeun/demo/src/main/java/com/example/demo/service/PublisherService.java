@@ -5,10 +5,12 @@ import com.example.demo.dto.PublisherDTO;
 import com.example.demo.exception.DuplicateEntityException;
 import com.example.demo.repository.PublisherRepository;
 import lombok.extern.slf4j.Slf4j;
+import com.example.demo.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+
 
 @Slf4j
 @Service
@@ -29,6 +31,7 @@ public class PublisherService {
         Publisher publisher = new Publisher(publisherDTO.getName());
         Publisher savedPublisher = publisherRepository.save(publisher);
         log.info("저자 저장 성공: {}", savedPublisher.getName());
+
         return new PublisherDTO(savedPublisher.getId(), publisherDTO.getName());
     }
 
@@ -50,5 +53,6 @@ public class PublisherService {
     public void deleteById(Long id){
         publisherRepository.deleteById(id);
         log.info("출판사 삭제 성공: id={}", id);
+
     }
 }

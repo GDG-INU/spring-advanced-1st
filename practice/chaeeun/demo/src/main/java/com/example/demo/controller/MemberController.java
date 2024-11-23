@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -42,6 +44,5 @@ public class MemberController {
         log.info("회원 삭제 완료: id={}", id);
         return ResponseEntity.noContent().build(); // 204 no content
     }
-
     // 회원이 대여 중인 책 목록 조회
 }

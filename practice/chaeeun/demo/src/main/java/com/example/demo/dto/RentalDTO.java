@@ -22,6 +22,7 @@ public class RentalDTO {
     @NotNull(message= "회원 ID는 비워둘 수 없습니다.")
     private Long memberId;
     @NotNull(message = "책 ID는 비워둘 수 없습니다.")
+
     private Long bookId;
     // 현재 rental 중인 책을 반환하는 메서드를 위해 추가
     private String bookTitle;

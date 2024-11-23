@@ -1,5 +1,4 @@
 package com.example.demo.dto;
-
 import com.example.demo.domain.Book;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class BookDTO {
     private Long id;
+
     @NotBlank(message = "제목은 비워둘 수 없습니다.")
     private String title;
     @NotBlank(message = "저자이름은 비워둘 수 없습니다.")

@@ -11,12 +11,15 @@ import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.RentalRepository;
 import lombok.extern.slf4j.Slf4j;
+import com.example.demo.repository.BookRepository;
+import com.example.demo.repository.MemberRepository;
+import com.example.demo.repository.RentalRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Slf4j
 @Service
@@ -57,8 +60,7 @@ public class RentalService {
         Rental rental = Rental.createRental(member, book);
         Rental savedRental = rentalRepository.save(rental);
         log.info("책 대여에 성공했습니다. rentalId={}, memberId={}, bookId={}", rental.getId(), memberId, bookId);
-
-       return RentalDTO.from(savedRental);
+        return RentalDTO.from(savedRental);
     }
 
     // 책 반납
@@ -74,7 +76,6 @@ public class RentalService {
         rental.markAsReturned();
         Rental savedRental = rentalRepository.save(rental);
         log.info("책 반납에 성공했습니다. rentalId={}, returnData={}", rentalId, savedRental.getReturnDate());
-
         return RentalDTO.from(savedRental);
 
     }
@@ -99,6 +100,5 @@ public class RentalService {
                 ))
                 .collect(Collectors.toList());
     }
-
 }
 

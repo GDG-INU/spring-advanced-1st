@@ -6,12 +6,14 @@ import com.example.demo.dto.PublisherDTO;
 import com.example.demo.service.PublisherService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import com.example.demo.dto.PublisherDTO;
+import com.example.demo.service.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
+
 
 @Slf4j
 @RestController
@@ -25,12 +27,19 @@ public class PublisherController {
         this.publisherService = publisherService;
     }
 
+
     @PostMapping
     public ResponseEntity<PublisherDTO> createPublisher(@Valid @RequestBody PublisherDTO publisherDTO) {
         PublisherDTO savedPublisher = publisherService.savePublisher(publisherDTO);
         log.info("출판사 등록이 완료되었습니다: {}", savedPublisher.getName());
         return ResponseEntity.ok(savedPublisher);
     }
+
+
+   @PostMapping
+    public PublisherDTO createAuthor(@RequestBody PublisherDTO publisherDTO) {
+       return publisherService.savePublisher(publisherDTO);
+   }
 
 
    @GetMapping("/{id}")
@@ -45,6 +54,7 @@ public class PublisherController {
         List<PublisherDTO> publishers = publisherService.findAll();
        log.info("전체 출판사 조회가 완료되었습니다: {}건", publishers.size());
         return publishers;
+
    }
 
    // 204 not content
@@ -52,7 +62,7 @@ public class PublisherController {
    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePublisher(@PathVariable("id") Long id) {
         publisherService.deleteById(id);
-       log.info("출판사 삭제가 완료되었습니다: id={}", id);
+        log.info("출판사 삭제가 완료되었습니다: id={}", id);
         return ResponseEntity.noContent().build(); // 204 not content
    }
 }
