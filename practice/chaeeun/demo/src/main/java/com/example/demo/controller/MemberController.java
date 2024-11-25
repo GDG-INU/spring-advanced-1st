@@ -25,7 +25,6 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<MemberDTO> createMember(@Valid @RequestBody MemberDTO memberDTO) {
         MemberDTO savedMember = memberService.registerMember(memberDTO);
-        log.info("회원 등록에 성공하였습니다. id={}, name={}, email={}", savedMember.getId(), savedMember.getName(), savedMember.getEmail());
         return ResponseEntity.ok(savedMember);
     }
 
@@ -41,7 +40,6 @@ public class MemberController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMember(@PathVariable("id") Long id) {
         memberService.deleteMember(id);
-        log.info("회원 삭제 완료: id={}", id);
         return ResponseEntity.noContent().build(); // 204 no content
     }
     // 회원이 대여 중인 책 목록 조회
