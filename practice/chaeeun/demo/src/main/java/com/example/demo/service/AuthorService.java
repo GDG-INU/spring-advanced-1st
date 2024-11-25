@@ -22,17 +22,20 @@ public class AuthorService {
         this.authorRepository = authorRepository;
     }
 
+    // 중복 확인
+    private void validateDuplicateAuthor(String name){
+        if(authorRepository.existsByName(name)){
+            throw new DuplicateEntityException("이미 등록된 저자입니다.");
+        }
+    }
+
     // DTO를 받아서 엔티티로 변환 후 저장하고, 저장된 엔티티를 다시 DTO로 변환해서 반환
     @Transactional
     public AuthorDTO saveAuthor (AuthorDTO authorDTO) {
         // 동일한 이름의 Author가 이미 존재하는지 확인
-        if(authorRepository.existsByName(authorDTO.getName())){
-            log.error("저자 저장 실패 - 중복된 이름: {}", authorDTO.getName());
-            throw new DuplicateEntityException("이미 등록된 저자입니다.");
-        }
+        validateDuplicateAuthor(authorDTO.getName()); // 중복 확인
         Author author = new Author(authorDTO.getName());
         Author savedAuthor = authorRepository.save(author);
-        log.info("저자 저장 성공: {}", savedAuthor.getName());
         return new AuthorDTO(savedAuthor.getId(), savedAuthor.getName());
     }
 
@@ -56,6 +59,5 @@ public class AuthorService {
     @Transactional
     public void deleteById(Long id) {
         authorRepository.deleteById(id);
-        log.info("저자 삭제 성공: id={}", id);
     }
 }

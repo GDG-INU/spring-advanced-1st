@@ -31,11 +31,6 @@ public class PublisherController {
     }
 
 
-   @PostMapping
-    public PublisherDTO createAuthor(@RequestBody PublisherDTO publisherDTO) {
-       return publisherService.savePublisher(publisherDTO);
-   }
-
 
    @GetMapping("/{id}")
     public ResponseEntity<PublisherDTO> getPublisher(@PathVariable("id") Long id) {

@@ -2,14 +2,13 @@ package com.example.demo.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class AuthorDTO {
     private Long id;
     @NotBlank(message = "저자 이름은 비워둘 수 없습니다.")

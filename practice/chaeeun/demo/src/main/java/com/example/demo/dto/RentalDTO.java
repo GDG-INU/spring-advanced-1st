@@ -3,10 +3,7 @@ package com.example.demo.dto;
 import com.example.demo.domain.Rental;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -14,6 +11,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class RentalDTO {
     private Long id;
     @NotBlank(message = "대여 날짜는 비워둘 수 없습니다.")

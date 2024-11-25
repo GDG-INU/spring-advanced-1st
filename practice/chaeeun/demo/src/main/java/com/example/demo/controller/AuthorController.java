@@ -25,8 +25,7 @@ public class AuthorController {
     @PostMapping
     public ResponseEntity<AuthorDTO> createAuthor(@Valid @RequestBody AuthorDTO authorDTO) {
         AuthorDTO savedAuthor = authorService.saveAuthor(authorDTO);
-        log.info("저자 등록이 완료되었습니다: {}", savedAuthor.getName());
-        return ResponseEntity.ok(savedAuthor);
+        return ResponseEntity.status(201).body(savedAuthor); // post 요청의 경우 201로 반환
     }
 
     @GetMapping("/{id}")
@@ -39,14 +38,12 @@ public class AuthorController {
     @GetMapping
     public List<AuthorDTO> getAllAuthors() {
         List<AuthorDTO> authors = authorService.findAll();
-        log.info("전체 저자 조회가 완료되었습니다: {}건", authors.size());
         return authors;
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAuthor(@PathVariable("id") Long id) {
         authorService.deleteById(id);
-        log.info("저자 삭제가 완료되었습니다: id={}", id);
         return ResponseEntity.noContent().build(); // 204 no content
     }
 }
