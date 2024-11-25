@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-
 import com.example.demo.domain.Book;
 import com.example.demo.domain.Member;
 import com.example.demo.domain.Rental;
@@ -11,12 +10,8 @@ import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.RentalRepository;
 import lombok.extern.slf4j.Slf4j;
-import com.example.demo.repository.BookRepository;
-import com.example.demo.repository.MemberRepository;
-import com.example.demo.repository.RentalRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,12 +76,13 @@ public class RentalService {
     }
 
     // 현재 대여중인 책 조회
+    @Transactional(readOnly = true)
     public List<RentalDTO> getAllRentals(Long memberId) {
         log.debug("회원 대여 목록 조회를 시작합니다. memberId={}", memberId);
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> {
                     log.error("존재하지 않는 회원입니다.memberId={}", memberId);
-                return new IllegalArgumentException(memberId + " 는 존재하지 않습니다.");
+                return new NotFoundException(memberId + " 는 존재하지 않습니다.");
                 });
 
         return rentalRepository.findByMemberIdAndReturnDateIsNull(memberId).stream()

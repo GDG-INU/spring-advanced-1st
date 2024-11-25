@@ -10,6 +10,8 @@ import com.example.demo.repository.PublisherRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,6 +30,7 @@ public class BookService {
         this.publisherRepository = publisherRepository;
     }
 
+    @Transactional
     public BookDTO saveBook(BookDTO bookDTO) {
         // ID를 통해 Author와 Publisher를 데이터베이스에서 조회
         Author author = authorRepository.findById(bookDTO.getAuthorId())
@@ -53,6 +56,7 @@ public class BookService {
         return new BookDTO(savedBook);
     }
 
+    @Transactional(readOnly = true)
     public Optional<BookDTO> findById(Long id) {
         return bookRepository.findBookWithAuthorAndPublisherById(id)
                 .map(book -> {
@@ -68,18 +72,21 @@ public class BookService {
                 });
     }
 
+    @Transactional(readOnly = true)
     public List<BookDTO> findByTitle(String title){
         return bookRepository.findByTitleContaining(title).stream()
                 .map(book -> new BookDTO(book))
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<BookDTO> getAllBooks(){
         return bookRepository.findAll().stream()
                 .map(book -> new BookDTO(book))
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void deleteById(Long id){
         bookRepository.deleteById(id);
         log.info("도서 삭제를 완료했습니다. id={}", id);

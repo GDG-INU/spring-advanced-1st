@@ -5,10 +5,9 @@ import com.example.demo.dto.MemberDTO;
 import com.example.demo.exception.DuplicateEntityException;
 import com.example.demo.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
-import com.example.demo.dto.AuthorDTO;
-import com.example.demo.dto.MemberDTO;
-import com.example.demo.repository.MemberRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 
@@ -22,6 +21,7 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
+    @Transactional
     public MemberDTO registerMember(MemberDTO memberDTO) {
         if(memberRepository.existsByEmail(memberDTO.getEmail())) {
             log.error("이미 등록된 회원입니다. email={}", memberDTO.getEmail());
@@ -36,12 +36,14 @@ public class MemberService {
 
     // 주어진 id로 Member 엔티티를 데이터베이스에서 찾아오고
     // 찾은 Member 엔티티를 AuthorDTO로 변환한다.
+    @Transactional(readOnly = true)
     public Optional<MemberDTO> findById(Long id) {
         return memberRepository.findById(id)
                 .map(member -> new MemberDTO(member.getId(), member.getName(), member.getEmail()));
     }
 
     // 회원 삭제
+    @Transactional
     public void deleteMember(Long id) {
         log.info("회원 삭제에 성공하였습니다. id={}", id);
         memberRepository.deleteById(id);
