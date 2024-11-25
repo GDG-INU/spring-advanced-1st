@@ -32,22 +32,14 @@ public class RentalService {
     // 책 대여
     @Transactional
     public RentalDTO registerRental(Long memberId, Long bookId){
-        log.debug("책 대여 처리를 시작합니다. memberId={}, bookId={}", memberId, bookId);
         Member member = memberRepository.findById(memberId)
-           .orElseThrow(() -> {
-               log.error("존재하지 않는 회원으로 대여에 실패했습니다. memberId={}", memberId);
-               return new NotFoundException("회원이 존재하지 않습니다.");
-           });
+                .orElseThrow(() -> new NotFoundException("존재하지 않는 회원입니다. id=" + memberId));
 
         Book book = bookRepository.findById(bookId)
-            .orElseThrow(() -> {
-                log.error("존재하지 않는 회원으로 대여에 실패했습니다. bookId={}", bookId);
-                return new NotFoundException("책이 존재하지 않습니다.");
-            });
+                .orElseThrow(() -> new NotFoundException("존재하지 않는 책입니다. id=" + bookId));
 
         // 책이 이미 대여중인지 확인(returnDate가 null이라면 아직 반납되지 않은 상태)
         if(rentalRepository.findByBookAndReturnDateIsNull(book).isPresent()){
-            log.warn("이미 대여중인 책은 대여가 불가합니다. bookId={}", bookId);
            throw new AlreadyRentedException("이 책은 이미 대여중이므로 대여할 수 없습니다.");
         }
 
@@ -61,12 +53,9 @@ public class RentalService {
     // 책 반납
     @Transactional
     public RentalDTO returnBook(Long rentalId){
-        log.debug("책 반납 처리를 시작합니다. rentalId={} ", rentalId);
         Rental rental = rentalRepository.findWithMemberAndBookById(rentalId)
-                .orElseThrow(() -> {
-                    log.error("존재하지 않는 대여 기록으로 반납에 실패했습니다. rentalId={}", rentalId);
-                    return new NotFoundException("대여 기록이 존재하지 않습니다.");
-                });
+                .orElseThrow(() -> new NotFoundException("대여 기록이 존재하지 않습니다. rentalId=" + rentalId));
+
 
         rental.markAsReturned();
         Rental savedRental = rentalRepository.save(rental);
@@ -78,12 +67,8 @@ public class RentalService {
     // 현재 대여중인 책 조회
     @Transactional(readOnly = true)
     public List<RentalDTO> getAllRentals(Long memberId) {
-        log.debug("회원 대여 목록 조회를 시작합니다. memberId={}", memberId);
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> {
-                    log.error("존재하지 않는 회원입니다.memberId={}", memberId);
-                return new NotFoundException(memberId + " 는 존재하지 않습니다.");
-                });
+                .orElseThrow(() -> new NotFoundException("회원이 존재하지 않습니다. id={}" + memberId));
 
         return rentalRepository.findByMemberIdAndReturnDateIsNull(memberId).stream()
                 .map(rental -> new RentalDTO(

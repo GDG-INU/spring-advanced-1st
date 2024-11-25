@@ -25,7 +25,7 @@ public class BookController {
     @PostMapping
     public ResponseEntity<BookDTO> createBook(@Valid @RequestBody BookDTO bookDTO){
         BookDTO savedBook = bookService.saveBook(bookDTO);
-        log.info("도서 등록이 완료되었습니다: {}", savedBook.getTitle());
+        log.info("새로운 도서 등록이 완료되었습니다: {}", savedBook.getTitle());
         return ResponseEntity.ok(savedBook);
     }
 
