@@ -26,10 +26,9 @@ public class PublisherController {
     @PostMapping
     public ResponseEntity<PublisherDTO> createPublisher(@Valid @RequestBody PublisherDTO publisherDTO) {
         PublisherDTO savedPublisher = publisherService.savePublisher(publisherDTO);
-        log.info("출판사 등록이 완료되었습니다: {}", savedPublisher.getName());
+        log.info("새로운 출판사가 등록되었습니다: {}", savedPublisher.getName());
         return ResponseEntity.ok(savedPublisher);
     }
-
 
 
    @GetMapping("/{id}")
@@ -42,7 +41,6 @@ public class PublisherController {
    @GetMapping
     public List<PublisherDTO> getAllPublishers() {
         List<PublisherDTO> publishers = publisherService.findAll();
-       log.info("전체 출판사 조회가 완료되었습니다: {}건", publishers.size());
         return publishers;
 
    }
@@ -52,7 +50,6 @@ public class PublisherController {
    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePublisher(@PathVariable("id") Long id) {
         publisherService.deleteById(id);
-        log.info("출판사 삭제가 완료되었습니다: id={}", id);
         return ResponseEntity.noContent().build(); // 204 not content
    }
 }

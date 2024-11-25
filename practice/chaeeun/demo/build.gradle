@@ -36,7 +36,6 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:1.18.28'
 	// 로깅 AOP 구현
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
-
 }
 
 tasks.named('test') {

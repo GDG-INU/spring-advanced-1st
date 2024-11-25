@@ -11,13 +11,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoggingAspect {
 
-    // 컨트롤러의 모든 메서드를 대상으로 지정
-    @Pointcut("execution(* com.example.demo.controller.*.*(..))")
-    public void controllerMethods() {
-    }
+    // 컨트롤러와 서비스의 모든 메서드를 대상으로 지정
+    @Pointcut("execution(* com.example.demo.controller.*.*(..)) || execution(* com.example.demo.service.*.*(..))")
+    public void applicationMethods() {}
 
     // 메서드 실행 전
-    @Before("controllerMethods()")
+    @Before("applicationMethods()")
     public void logBefore(JoinPoint joinPoint) {
         log.info("메서드 호출 시작: {}", joinPoint.getSignature().toShortString());
         Object[] args = joinPoint.getArgs();
@@ -30,16 +29,14 @@ public class LoggingAspect {
     }
 
     // 메서드 실행 후
-    @AfterReturning(pointcut = "controllerMethods()", returning = "result")
+    @AfterReturning(pointcut = "applicationMethods()", returning = "result")
     public void logAfterReturning(JoinPoint joinPoint, Object result) {
         log.info("메서드 호출 성공: {}", joinPoint.getSignature().toShortString());
         log.info("반환 값: {}", result);
     }
 
     // 예외 발생 시
-
-    // 예외 발생 시 로깅
-    @AfterThrowing(pointcut = "controllerMethods()", throwing = "exception")
+    @AfterThrowing(pointcut = "applicationMethods()", throwing = "exception")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable exception) {
         log.error("메서드 실행 중 예외 발생: {}", joinPoint.getSignature().toShortString());
         log.error("예외 메시지: {}", exception.getMessage(), exception);

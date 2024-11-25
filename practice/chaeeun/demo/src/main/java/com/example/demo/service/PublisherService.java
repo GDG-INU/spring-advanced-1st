@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -23,17 +22,18 @@ public class PublisherService {
         this.publisherRepository = publisherRepository;
     }
 
+    // 중복 확인
+    private void validateDuplicateAuthor(String name){
+        if(publisherRepository.existsByName(name)){
+            throw new DuplicateEntityException("이미 등록된 출판사입니다.");
+        }
+    }
     // DTO로 받아서 엔티티로 변환 후 저장하고, 저장된 엔티티를 다시 DTO로 변환해서 반환
     @Transactional
     public PublisherDTO savePublisher(PublisherDTO publisherDTO) {
-        if(publisherRepository.existsByName(publisherDTO.getName())) {
-            log.error("출판사 저장 실패 - 중복된 이름: {}", publisherDTO.getName());
-            throw new DuplicateEntityException("이미 등록된 출판사입니다.");
-        }
+        validateDuplicateAuthor(publisherDTO.getName());
         Publisher publisher = new Publisher(publisherDTO.getName());
         Publisher savedPublisher = publisherRepository.save(publisher);
-        log.info("저자 저장 성공: {}", savedPublisher.getName());
-
         return new PublisherDTO(savedPublisher.getId(), publisherDTO.getName());
     }
 
@@ -57,7 +57,5 @@ public class PublisherService {
     @Transactional
     public void deleteById(Long id){
         publisherRepository.deleteById(id);
-        log.info("출판사 삭제 성공: id={}", id);
-
     }
 }
