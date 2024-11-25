@@ -28,13 +28,15 @@ dependencies {
 	// mysql 설정
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	implementation 'org.projectlombok:lombok:1.18.24'
-
 	// Bean Validation 의존성 추가
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	// @Slf4j
 	compileOnly 'org.projectlombok:lombok:1.18.28'
 	// @Slf4j
 	annotationProcessor 'org.projectlombok:lombok:1.18.28'
+	// 로깅 AOP 구현
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+
 }
 
 tasks.named('test') {
