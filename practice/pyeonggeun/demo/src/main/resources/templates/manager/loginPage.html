@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Login</title>
+</head>
+<body>
+<h1>Manager Login</h1>
+<form action="/manager/loginProcess" method="post">
+    <label for="id">ID:</label>
+    <input type="text" id="id" name="id" required><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+    <button type="submit">Login</button>
+</form>
+<p style="color:red;" th:if="${error != null}" th:text="${error}"></p>
+</body>
+</html>
