@@ -1,4 +1,3 @@
-# 공통 설정
 spring:
   application:
     name: demo-application # 애플리케이션 이름
@@ -6,7 +5,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/demo?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
-    password: 031103
+    password: '031103'
   jpa:
     hibernate:
       ddl-auto: update # 개발 중에는 update, 운영 시에는 validate 사용 권장
@@ -17,16 +16,16 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
     show-sql: true # SQL 쿼리 표시
   main:
-    allow-bean-definition-overriding: true # (필요에 따라 추가)
+    allow-bean-definition-overriding: true # 필요에 따라 사용
 
-# fetch join -> Hibernate SQL
+
 logging:
   level:
     root: INFO # 기본 로그 레벨
     org.hibernate.SQL: DEBUG # Hibernate SQL 로그
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE # Hibernate 바인딩 정보
   file:
-    path: logs/application.log # 로그 파일 경로
+    path: logs/application.log # 기본 로그 파일 경로
 
 # 개발 환경 (local) 설정
 ---
@@ -34,15 +33,16 @@ spring:
   config:
     activate:
       on-profile: local
-logging:
-  level:
-    root: DEBUG
-  file:
-    path: logs/local-application.log
   jpa:
     show-sql: true # 개발 환경에서 SQL 쿼리 확인
     properties:
-      hibernate.format_sql: true
+      hibernate:
+        format_sql: true
+logging:
+  level:
+    root: DEBUG # 개발 환경 로그 수준
+  file:
+    path: logs/local-application.log
 
 # 운영 환경 (prod) 설정
 ---
@@ -52,6 +52,6 @@ spring:
       on-profile: prod
 logging:
   level:
-    root: WARN
+    root: WARN # 운영 환경 로그 수준
   file:
     path: /var/log/applications/prod-application.log

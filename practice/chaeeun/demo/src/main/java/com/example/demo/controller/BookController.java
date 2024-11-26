@@ -11,7 +11,6 @@ import java.util.List;
 
 
 @Slf4j
-@Validated
 @RestController
 @RequestMapping("/books")
 public class BookController {
