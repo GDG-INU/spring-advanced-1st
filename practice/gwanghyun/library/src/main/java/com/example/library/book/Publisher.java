@@ -1,6 +1,8 @@
 package com.example.library.book;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.List;
 
 @Entity
@@ -8,11 +10,13 @@ public class Publisher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Long publisherId;
 
     @Column(nullable = false)
     private String name;
 
+    @NotNull
     private String address;
 
     @OneToMany(mappedBy = "publisher")

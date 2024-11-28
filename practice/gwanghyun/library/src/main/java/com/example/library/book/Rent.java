@@ -1,23 +1,32 @@
 package com.example.library.book;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+
 
 @Entity
 public class Rent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Long rentId;
 
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
+    @NotNull
     private Book book;
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
+    @NotNull
     private Member member;
 
+    @Past
     private String rentDate;
+
+
     private String returnDate;
 
     // Rent 엔티티를 불변 객체로 만들기 위해 생성자 사용
