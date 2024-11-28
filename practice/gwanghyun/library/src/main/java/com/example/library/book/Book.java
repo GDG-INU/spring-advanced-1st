@@ -1,6 +1,8 @@
 package com.example.library.book;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.List;
 
 @Entity
@@ -8,9 +10,11 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Long bookId;
 
     @Column(nullable = false)
+    @NotNull
     private String name;
 
     private String explanation;
