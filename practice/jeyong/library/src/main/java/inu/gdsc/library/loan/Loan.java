@@ -3,6 +3,7 @@ package inu.gdsc.library.loan;
 import inu.gdsc.library.Member.Member;
 import inu.gdsc.library.book.Book;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,6 +27,7 @@ public class Loan {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @NotNull
     private LocalDate borrowDate;
 
     private LocalDate returnDue;

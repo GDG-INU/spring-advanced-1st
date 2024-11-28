@@ -4,7 +4,9 @@ import inu.gdsc.library.NotEnoughQuantityException;
 import inu.gdsc.library.author.Author;
 import inu.gdsc.library.publisher.Publisher;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.validator.constraints.Range;
 
 @Getter @Setter
 @Entity @NoArgsConstructor
@@ -14,18 +16,23 @@ public class Book {
     @Column(name = "bookId")
     private long id;
 
+    @NotNull
+    @Range(min = 2)
     private String title;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
+    @NotNull
     private Author author;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
+    @NotNull
     private Integer ISBN;
 
+    @NotNull
     private Integer quantity;
 
     private boolean isAvailable;
