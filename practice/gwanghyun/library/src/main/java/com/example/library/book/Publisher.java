@@ -1,8 +1,8 @@
 package com.example.library.book;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
 import java.util.List;
 
 @Entity
@@ -14,18 +14,19 @@ public class Publisher {
     private Long publisherId;
 
     @Column(nullable = false)
+    @NotBlank
     private String name;
 
-    @NotNull
+    @NotBlank
     private String address;
 
-    @OneToMany(mappedBy = "publisher")
+    @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Book> books;
 
-    // 기본 생성자 (JPA는 기본 생성자가 필요)
+    // 기본 생성자
     protected Publisher() {}
 
-    // Publisher 엔티티를 불변 객체로 만들기 위해 생성자 사용
+    // 불변 객체를 위한 생성자
     public Publisher(String name, String address) {
         this.name = name;
         this.address = address;
