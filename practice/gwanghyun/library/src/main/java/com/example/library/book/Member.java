@@ -1,6 +1,8 @@
 package com.example.library.book;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.List;
 
 @Entity
@@ -8,11 +10,14 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Long memberId;
 
     @Column(nullable = false)
+    @NotNull
     private String name;
 
+    @NotNull
     private String contact;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
