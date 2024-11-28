@@ -25,7 +25,7 @@ public class BookController {
     @PostMapping
     public ResponseEntity<Book> addBook(@RequestBody Book book) {
         logger.info("새로운 책 추가 요청: {}", book);
-        Book createdBook = bookService.addBook(book);
+        Book createdBook = bookService.addBook(book); // 예외 발생 시 ControllerAdvice에서 처리
         logger.info("책 추가 완료: {}", createdBook);
         return ResponseEntity.ok(createdBook);
     }
@@ -43,14 +43,9 @@ public class BookController {
     @GetMapping("/{bookId}")
     public ResponseEntity<Book> getBookById(@PathVariable Long bookId) {
         logger.info("책 조회 요청, ID: {}", bookId);
-        Optional<Book> book = bookService.getBookById(bookId);
-        if (book.isPresent()) {
-            logger.info("책 조회 성공: {}", book.get());
-            return ResponseEntity.ok(book.get());
-        } else {
-            logger.warn("책 조회 실패, ID: {}", bookId);
-            return ResponseEntity.notFound().build();
-        }
+        return bookService.getBookById(bookId)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new IllegalArgumentException("책을 찾을 수 없습니다. ID: " + bookId));
     }
 
     // 책 수정
@@ -63,7 +58,7 @@ public class BookController {
             return ResponseEntity.ok(book);
         } else {
             logger.warn("책 수정 실패, ID: {}", bookId);
-            return ResponseEntity.notFound().build();
+            throw new IllegalArgumentException("수정할 책을 찾을 수 없습니다. ID: " + bookId);
         }
     }
 
@@ -71,7 +66,7 @@ public class BookController {
     @DeleteMapping("/{bookId}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long bookId) {
         logger.info("책 삭제 요청, ID: {}", bookId);
-        bookService.deleteBook(bookId);
+        bookService.deleteBook(bookId); // 예외 발생 시 ControllerAdvice에서 처리
         logger.info("책 삭제 완료, ID: {}", bookId);
         return ResponseEntity.noContent().build();
     }
