@@ -3,7 +3,7 @@ package com.example.library.book;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
-
+import java.time.LocalDate;
 
 @Entity
 public class Rent {
@@ -24,13 +24,16 @@ public class Rent {
     private Member member;
 
     @Past
-    private String rentDate;
+    @NotNull
+    private LocalDate rentDate;
 
+    private LocalDate returnDate;
 
-    private String returnDate;
+    // 기본 생성자 (JPA는 기본 생성자가 필요)
+    protected Rent() {}
 
-    // Rent 엔티티를 불변 객체로 만들기 위해 생성자 사용
-    public Rent(Book book, Member member, String rentDate, String returnDate) {
+    // 불변 객체를 위한 생성자
+    public Rent(Book book, Member member, LocalDate rentDate, LocalDate returnDate) {
         this.book = book;
         this.member = member;
         this.rentDate = rentDate;
@@ -49,11 +52,11 @@ public class Rent {
         return member;
     }
 
-    public String getRentDate() {
+    public LocalDate getRentDate() {
         return rentDate;
     }
 
-    public String getReturnDate() {
+    public LocalDate getReturnDate() {
         return returnDate;
     }
 }

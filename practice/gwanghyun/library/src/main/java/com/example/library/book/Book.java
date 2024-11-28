@@ -34,15 +34,21 @@ public class Book {
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    // 기본 생성자 (JPA는 기본 생성자가 필요)
-    protected Book() {}
+    // 기본 생성자
+    protected Book() {
+    }
 
-    // Book 엔티티를 불변 객체로 만들기 위해 생성자 사용
+    // 불변 객체를 위한 생성자
     public Book(String name, String explanation, List<Author> authors, Publisher publisher) {
         this.name = name;
         this.explanation = explanation;
         this.authors = authors;
         this.publisher = publisher;
+    }
+
+    // 기존 ID를 유지하기 위한 내부 설정 메서드
+    protected void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
 
     public Long getBookId() {
@@ -59,13 +65,5 @@ public class Book {
 
     public List<Rent> getRentList() {
         return rentList;
-    }
-
-    public List<Author> getAuthors() {
-        return authors;
-    }
-
-    public Publisher getPublisher() {
-        return publisher;
     }
 }
