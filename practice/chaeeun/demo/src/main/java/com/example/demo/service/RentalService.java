@@ -5,6 +5,7 @@ import com.example.demo.domain.Member;
 import com.example.demo.domain.Rental;
 import com.example.demo.dto.RentalDTO;
 import com.example.demo.exception.AlreadyRentedException;
+import com.example.demo.exception.MaxRentalLimitExceededException;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.MemberRepository;
@@ -19,6 +20,9 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class RentalService {
+
+    private static final int MAX_RENTAL_LIMIT = 5; // 최대 대여 권수
+
     private final RentalRepository rentalRepository;
     private final MemberRepository memberRepository;
     private final BookRepository bookRepository;
@@ -37,6 +41,12 @@ public class RentalService {
 
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new NotFoundException("존재하지 않는 책입니다. id=" + bookId));
+
+        // 최대 대여 권수(5권) 제한
+        int currentRentalCount = rentalRepository.countByMemberIdAndReturnDateIsNull(memberId);
+        if (currentRentalCount >= MAX_RENTAL_LIMIT) {
+            throw new MaxRentalLimitExceededException("최대 대여 권수(" + MAX_RENTAL_LIMIT + "권)를 초과했습니다.");
+        }
 
         // 책이 이미 대여중인지 확인(returnDate가 null이라면 아직 반납되지 않은 상태)
         if(rentalRepository.findByBookAndReturnDateIsNull(book).isPresent()){

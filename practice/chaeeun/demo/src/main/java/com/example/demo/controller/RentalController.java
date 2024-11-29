@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-
 @Slf4j
 @RestController
 @RequestMapping("/rentals")
@@ -37,5 +36,4 @@ public class RentalController {
         log.info("회원이 대여하고 있는 책 목록 조회 성공: 대여 건수={}, memberId={}", rentals.size(), memberId);
         return ResponseEntity.ok(rentals);
     }
-
 }

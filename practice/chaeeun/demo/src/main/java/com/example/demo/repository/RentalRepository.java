@@ -16,4 +16,7 @@ public interface RentalRepository extends JpaRepository<Rental, Long> {
     List<Rental> findByMemberIdAndReturnDateIsNull(Long memberId);
     @Query("SELECT r FROM Rental r JOIN FETCH r.member JOIN FETCH r.book WHERE r.id = :id")
     Optional<Rental> findWithMemberAndBookById(@Param("id") Long RentalId);
+    // 한 회원이 대여 중인 책의 수 조회
+    @Query("SELECT COUNT(r) FROM Rental r WHERE r.member.id = :memberId AND r.returnDate IS NULL")
+    int countByMemberIdAndReturnDateIsNull(@Param("memberId") Long memberId);
 }

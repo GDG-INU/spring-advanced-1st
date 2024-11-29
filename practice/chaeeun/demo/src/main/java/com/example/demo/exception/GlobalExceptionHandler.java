@@ -42,4 +42,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
+    // 한 회원이 빌릴 수 있는 최대 대여 횟수 제한
+    @ExceptionHandler(MaxRentalLimitExceededException.class)
+    public ResponseEntity<String> handleMaxRentalLimitExceededException(MaxRentalLimitExceededException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage()); // 400 Bad Request
+    }
+
 }
