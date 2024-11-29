@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.AuthorDTO;
 import com.example.demo.dto.MemberDTO;
 import com.example.demo.service.MemberService;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/members")
 public class MemberController {
@@ -18,8 +20,9 @@ public class MemberController {
 
     // 회원 생성
     @PostMapping
-    public MemberDTO createMember(@RequestBody MemberDTO memberDTO) {
-        return memberService.registerMember(memberDTO);
+    public ResponseEntity<MemberDTO> createMember(@Valid @RequestBody MemberDTO memberDTO) {
+        MemberDTO savedMember = memberService.registerMember(memberDTO);
+        return ResponseEntity.ok(savedMember);
     }
 
     // id로 회원 조회
@@ -36,6 +39,5 @@ public class MemberController {
         memberService.deleteMember(id);
         return ResponseEntity.noContent().build(); // 204 no content
     }
-
     // 회원이 대여 중인 책 목록 조회
 }

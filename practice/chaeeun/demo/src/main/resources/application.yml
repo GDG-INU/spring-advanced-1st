@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: demo-application # 애플리케이션 이름
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/demo?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: '031103'
+  jpa:
+    hibernate:
+      ddl-auto: update # 개발 중에는 update, 운영 시에는 validate 사용 권장
+    open-in-view: false # View에서 Lazy 로딩 방지
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: true # SQL 쿼리 표시
+  main:
+    allow-bean-definition-overriding: true # 필요에 따라 사용
+
+
+logging:
+  level:
+    root: INFO # 기본 로그 레벨
+    org.hibernate.SQL: DEBUG # Hibernate SQL 로그
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE # Hibernate 바인딩 정보
+  file:
+    path: logs/application.log # 기본 로그 파일 경로
+
+# 개발 환경 (local) 설정
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  jpa:
+    show-sql: true # 개발 환경에서 SQL 쿼리 확인
+    properties:
+      hibernate:
+        format_sql: true
+logging:
+  level:
+    root: DEBUG # 개발 환경 로그 수준
+  file:
+    path: logs/local-application.log
+
+# 운영 환경 (prod) 설정
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+logging:
+  level:
+    root: WARN # 운영 환경 로그 수준
+  file:
+    path: /var/log/applications/prod-application.log

@@ -1,15 +1,16 @@
 package com.example.demo.controller;
 
-import com.example.demo.domain.Publisher;
 import com.example.demo.dto.PublisherDTO;
 import com.example.demo.service.PublisherService;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
 
+
+@Slf4j
 @RestController
 @RequestMapping("/publishers")
 public class PublisherController {
@@ -21,10 +22,14 @@ public class PublisherController {
         this.publisherService = publisherService;
     }
 
-   @PostMapping
-    public PublisherDTO createAuthor(@RequestBody PublisherDTO publisherDTO) {
-       return publisherService.savePublisher(publisherDTO);
-   }
+
+    @PostMapping
+    public ResponseEntity<PublisherDTO> createPublisher(@Valid @RequestBody PublisherDTO publisherDTO) {
+        PublisherDTO savedPublisher = publisherService.savePublisher(publisherDTO);
+        log.info("새로운 출판사가 등록되었습니다: {}", savedPublisher.getName());
+        return ResponseEntity.ok(savedPublisher);
+    }
+
 
    @GetMapping("/{id}")
     public ResponseEntity<PublisherDTO> getPublisher(@PathVariable("id") Long id) {
@@ -35,7 +40,9 @@ public class PublisherController {
 
    @GetMapping
     public List<PublisherDTO> getAllPublishers() {
-        return publisherService.findAll();
+        List<PublisherDTO> publishers = publisherService.findAll();
+        return publishers;
+
    }
 
    // 204 not content

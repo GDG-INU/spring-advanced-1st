@@ -14,6 +14,8 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true) // 중복 방지를 위해 unique 추가
     private String name;
 
     @OneToMany(mappedBy = "author")

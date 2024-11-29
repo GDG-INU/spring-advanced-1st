@@ -2,12 +2,14 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.AuthorDTO;
 import com.example.demo.service.AuthorService;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-
+@Slf4j
 @RestController
 @RequestMapping("/authors")
 public class AuthorController {
@@ -20,8 +22,9 @@ public class AuthorController {
     }
 
     @PostMapping
-    public AuthorDTO createAuthor(@RequestBody AuthorDTO authorDTO) {
-        return authorService.saveAuthor(authorDTO);
+    public ResponseEntity<AuthorDTO> createAuthor(@Valid @RequestBody AuthorDTO authorDTO) {
+        AuthorDTO savedAuthor = authorService.saveAuthor(authorDTO);
+        return ResponseEntity.status(201).body(savedAuthor); // post 요청의 경우 201로 반환
     }
 
     @GetMapping("/{id}")
@@ -33,7 +36,8 @@ public class AuthorController {
 
     @GetMapping
     public List<AuthorDTO> getAllAuthors() {
-        return authorService.findAll();
+        List<AuthorDTO> authors = authorService.findAll();
+        return authors;
     }
 
     @DeleteMapping("/{id}")
